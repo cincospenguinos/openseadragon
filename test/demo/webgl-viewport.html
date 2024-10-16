@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>OpenSeadragon 5 WebGL Viewport Margin Option Bug Demo</title>
+    <script type="text/javascript" src='../../build/openseadragon/openseadragon.js'></script>
+    <script type="text/javascript" src='../lib/jquery-1.9.1.min.js'></script>
+    <style type="text/css">
+        .openseadragon-demo {
+            width: 400px;
+            height: 300px;
+            background-color: black;
+        }
+
+        .drawer {
+            border: 4px solid blue;
+        }
+
+        #demo-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+/*            margin: 32px 256px;*/
+        }
+
+        html {
+            margin: 0 10%;
+        }
+    </style>
+</head>
+<body>
+    <div id="demo-container">
+        <div>
+            <h3>WebGL</h3>
+            <div id="drawer-webgl" class="openseadragon-demo drawer"></div>
+        </div>
+        <div>
+            <h3>Canvas</h3>
+            <div id="drawer-canvas" class="openseadragon-demo drawer"></div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        const viewportMargins = {
+            left: 25,
+            top: 25,
+            right: 25,
+            bottom: 25,
+        };
+
+        const sharedOpts = {
+            debugMode: true,
+            prefixUrl: "../../build/openseadragon/images/",
+            tileSources: "../data/testpattern.dzi",
+            showNavigator: true,
+            viewportMargins,
+        };
+
+        const webglViewer = OpenSeadragon({ ...sharedOpts, id: 'drawer-webgl', drawer: 'webgl' });
+        const canvasViewer = OpenSeadragon({ ...sharedOpts, id: 'drawer-canvas', drawer: 'canvas' });
+    </script>
+    <h3>WebGL's Margins Are Off</h3>
+    <p>The viewer on the right has the correct viewport margin behavior (note the 25 pixel space between the blue border and the image) while the one on the left is not behaving the same. Is this intended, or is this a bug?</p>
+    <p>Also, when debugMode is enabled, the tiles don't match what's drawn on the image on WebGL with modified viewport margins. Is that also expected behavior?</p>
+</body>
+</html>
